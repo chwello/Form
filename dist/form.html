@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="output.css">
+  
+  <title>Document</title>
+</head>
+<body class="border-gray-400 w">
+    
+    <div class="container mx-auto p-4 bg-">
+        <h2 class="text-2xl font-bold mb-4 text-red-700">User Registration Form</h2>
+        <form id="form" class="form">
+            <!-- First Name -->
+            <div class="mb-4">
+                <label for="fname" class="block mb-1 ">First Name:</label>
+                <input type="text" id="fname" name="fname" class="w-full border rounded-md px-3 py-2">
+            </div>
+             <!-- Last Name -->
+            <div class="mb-4">
+                <label for="lname" class="block mb-1">Last Name:</label>
+                <input type="text" id="lname" name="lname" class="w-full border rounded-md px-3 py-2">
+            </div>
+             <!-- Birthdate -->
+            <div class="mb-4">
+                <label for="birthdate" class="block mb-1">Birthdate:</label>
+                <input type="date" id="birthdate" name="birthdate" class="w-full border rounded-md px-3 py-2">
+            </div>
+             <!-- Email -->
+            <div class="mb-4">
+                <label for="email" class="block mb-1">Email:</label>
+                <input type="email" id="email" name="email" class="w-full border rounded-md px-3 py-2">
+            </div>
+             <!-- Confirm Email -->
+            <div class="mb-4">
+                <label for="confirm_email" class="block mb-1">Confirm Email:</label>
+                <input type="email" id="confirm_email" name="confirm_email" class="w-full border rounded-md px-3 py-2">
+            </div>
+             <!-- Password -->
+            <div class="mb-4">
+                <label for="password" class="block mb-1">Password:</label>
+                <input type="password" id="password" name="password" class="w-full border rounded-md px-3 py-2">
+            </div>
+             <!-- Confirm Password -->
+            <div class="mb-4">
+                <label for="confirm_password" class="block mb-1">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" class="w-full border rounded-md px-3 py-2">
+            </div>
+           
+            
+            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md">Submit</button>
+        </form>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
