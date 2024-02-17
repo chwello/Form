@@ -133,7 +133,7 @@ form.addEventListener('submit', (e) => {
  checkPassword(password)
  checkConfirmPassword(confirmPassword)
 })
-
+//handle
 function handleSubmit(event) {
   event.preventDefault(); 
   alert("Form successfully submitted!");
