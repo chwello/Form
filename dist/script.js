@@ -30,46 +30,73 @@ function checkRequired(inputArr){
 }
 
 function checkfname(input){
-  const reg = /^[a-zA-Z]+(?:[.'\s][a-zA-Z]+)*$/
-  if(reg.test(input.value.trim())){
-    setSuccessFor(input)
-  }else{
-    setErrorFor(input, 'First name should only contain letters and periods')
+  if(input.value.trim() === ''){
+    setErrorFor(input, 'First name is required');
+  } else {
+    const reg = /^[a-zA-Z]+(?:[.'\s][a-zA-Z]+)*$/
+    if(reg.test(input.value.trim())){
+      setSuccessFor(input)
+    } else {
+      setErrorFor(input, 'First name should only contain letters and periods')
+    }
   }
 }
+
 
 function checklname(input){
-  const reg = /^[a-zA-Z]+$/;
-  if(reg.test(input.value.trim())){
-    setSuccessFor(input)
-  }else{
-    setErrorFor(input, 'Last name should only contain letters')
+  if(input.value.trim() === ''){
+    setErrorFor(input, 'Last name is required');
+  } else {
+    const reg = /^[a-zA-Z]+$/;
+    if(reg.test(input.value.trim())){
+      setSuccessFor(input);
+    } else {
+      setErrorFor(input, 'Last name should only contain letters');
+    }
   }
 }
 
+
 function checkbirthdate(input){
-  const reg = /^[0-9/-]+$/;
-  if(reg.test(input.value.trim())){
-    setSuccessFor(input)
-  }else{
-    setErrorFor(input, 'Please use numbers and dashes (-) or slashes (/)')
+  if(input.value.trim() === ''){
+    setErrorFor(input, 'Birthday is required');
+  } else {
+    const reg = /^[0-9/-]+$/;
+    if(reg.test(input.value.trim())){
+      setSuccessFor(input)
+    } else {
+      setErrorFor(input, 'Please use numbers and dashes (-) or slashes (/)')
+    }
   }
 }
 
 function checkEmail(input){
-  const reg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-  if(reg.test(input.value.trim())){
-    setSuccessFor(input)
-  }else{
-    setErrorFor(input, 'Invalid email')
+  if(input.value.trim() === ''){
+    setErrorFor(input, 'Email is required');
+  } else {
+    const reg = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    if(reg.test(input.value.trim())){
+      return true;
+    } else {
+      setErrorFor(input, 'Invalid email');
+    }
   }
 }
 
 function checkEmailsMatch(input1, input2){
-  if(input1.value === input2.value){
-    setSuccessFor(input)
-  }else{
-    setErrorFor(input2, 'Emails do not match')
+  if(input1.value.trim() === ''){
+    setErrorFor(input1, 'Email is required');
+  } else if(input2.value.trim() === ''){
+    setErrorFor(input2, 'Confirm Email is required');
+  } else {
+    const bothEmailsValid = checkEmail(input1) && checkEmail(input2);
+
+    if(input1.value === input2.value && bothEmailsValid){
+      setSuccessFor(input1);
+      setSuccessFor(input2);
+    } else {
+      setErrorFor(input2, 'Emails do not match');
+    }
   }
 }
 
@@ -79,29 +106,40 @@ function checkLength(input, min, max){
   }else if(input.value.length > max){
     setErrorFor(input, `This field must be less than ${max} characters`)
   }else{
-    setSuccessFor(input)
+    return true
   }
 }
 
 function passwordsMatch(input1, input2){
-  if(input1.value === input2.value){
-    setSuccessFor(input)
-  }else{
-    setErrorFor(input2, 'Passwords do not match')
+  if(input1.value.trim() === ''){
+    setErrorFor(input1, 'Password is required');
+  } else if(input2.value.trim() === ''){
+    setErrorFor(input2, 'Confirm Password is required');
+  } else {
+    const passwordValid = checkLength(input1, 8, 15);
+    if(input1.value === input2.value && input1.value.trim().length > 0 && passwordValid){
+      setSuccessFor(input1);
+    } else {
+      setErrorFor(input2, 'Passwords do not match');
+    }
   }
 }
 
 form.addEventListener('submit', (e) => {
+  
   e.preventDefault()
   checkRequired([fname, lname, bdate, email, cemail, password, confirmPass])
   checkfname(fname)
   checklname(lname)
   checkbirthdate(bdate)
-  checkEmail(email)
   checkEmailsMatch(email, cemail)
-  checkLength(password, 8, 15)
   passwordsMatch(password, confirmPass)
   
-  
+  const isError = form.querySelectorAll('.error').length > 0;
+
+  if (!isError) {
+   
+    alert('Form successfully submitted!');
+  }
 
 })
