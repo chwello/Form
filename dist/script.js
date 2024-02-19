@@ -6,6 +6,7 @@ const email = document.getElementById('email')
 const cemail = document.getElementById('cemail')
 const password = document.getElementById('password')
 const confirmPass = document.getElementById('confirmPass')
+const inputs = document.querySelectorAll('input');
 
 function setErrorFor(input, message) {
 	const formControl = input.parentElement;
@@ -33,7 +34,7 @@ function checkfname(input){
   if(input.value.trim() === ''){
     setErrorFor(input, 'First name is required');
   } else {
-    const reg = /^[a-zA-Z]+(?:[.'\s][a-zA-Z]+)*$/
+    const reg = /^(?:[a-zA-Z]+|[a-zA-Z]+[.'\s]?[a-zA-Z]+\.?)$/
     if(reg.test(input.value.trim())){
       setSuccessFor(input)
     } else {
@@ -111,19 +112,24 @@ function checkLength(input, min, max){
 }
 
 function passwordsMatch(input1, input2){
-  if(input1.value.trim() === ''){
-    setErrorFor(input1, 'Password is required');
-  } else if(input2.value.trim() === ''){
-    setErrorFor(input2, 'Confirm Password is required');
-  } else {
-    const passwordValid = checkLength(input1, 8, 15);
-    if(input1.value === input2.value && input1.value.trim().length > 0 && passwordValid){
-      setSuccessFor(input1);
-    } else {
-      setErrorFor(input2, 'Passwords do not match');
-    }
+
+  const passwordValid = checkLength(input1, 8, 15)
+
+  if((input1.value === input2.value) && input1.value.trim().length > 0 && passwordValid){
+    setSuccessFor(input1)
+  }else{
+    setErrorFor(input2, 'Passwords do not match')
   }
 }
+
+function clearFields(){
+  inputs.forEach(input => {
+   if (input.type !== 'button' && input.type !== 'submit' && input.type !== 'reset') {
+     input.value = '';
+   }
+ });
+}
+
 
 form.addEventListener('submit', (e) => {
   
@@ -140,6 +146,8 @@ form.addEventListener('submit', (e) => {
   if (!isError) {
    
     alert('Form successfully submitted!');
+    
+    
   }
-
+  
 })
